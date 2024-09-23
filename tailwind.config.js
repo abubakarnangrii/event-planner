@@ -10,8 +10,19 @@ module.exports = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        primary: "var(--primary)",
+        text: "var(--text)",
+        text2: "var(--text2)",
+        khaki: "var(--khaki)",
+        cool: "var(--cool)",
+      },
+      backgroundImage: {
+        'gradient-khaki': 'linear-gradient(to bottom, var(--text), var(--khaki))',
+      },
+      fontFamily: {
+        sans: ["Arial", "Helvetica", "sans-serif"],
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography"), require("@tailwindcss/forms")],
 };
