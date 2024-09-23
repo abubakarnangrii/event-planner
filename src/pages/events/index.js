@@ -33,12 +33,9 @@ const AllEventsPage = () => {
 
   const handleFilter = (e) => {
     e.preventDefault();
-    const selectedYear = yearInputRef.current.value;
-    const selectedMonth = monthInputRef.current.value;
-    router.push({
-      pathname: `/events/${selectedYear}/${selectedMonth}`,
-      query: { year: selectedYear, month: selectedMonth },
-    });
+    const year = yearInputRef.current.value;
+    const month = monthInputRef.current.value;
+    router.push(`/events/${year}/${month}`);
   };
   return (
     <div className="bg-text">
