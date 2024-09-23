@@ -6,6 +6,8 @@ export const icons = {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
+      width="20" // Set width to 20
+      height="20" // Set height to 20 to maintain aspect ratio
       className="size-6"
     >
       <path
@@ -22,6 +24,8 @@ export const icons = {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
+      width="20" // Set width to 20
+      height="20" // Set height to 20 to maintain aspect ratio
       className="size-6"
     >
       <path
@@ -43,6 +47,8 @@ export const icons = {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
+      width="20" // Set width to 20
+      height="20" // Set height to 20 to maintain aspect ratio
       className="size-6"
     >
       <path
