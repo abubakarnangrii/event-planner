@@ -1,6 +1,4 @@
-import Image from "next/image";
 import localFont from "next/font/local";
-import Header from "@/components/Header";
 import EventCard from "@/components/EventCard";
 import { getFeaturedEvents } from "@/data/DummyData";
 
@@ -19,13 +17,23 @@ export default function Home() {
   const featuredEvents = getFeaturedEvents();
   return (
     <>
-      <Header />
       <div className="flex flex-col justify-center items-center gap-y-4 py-20">
-      <h1 className="text-2xl text-cool font-semibold">Featured Events</h1>
+        <h1 className="text-2xl text-cool font-semibold">Featured Events</h1>
         {featuredEvents.length > 0 ? (
-          <EventCard featuredEvents={featuredEvents} />
+          featuredEvents.map((featuredEvent) => (
+            <EventCard
+              key={featuredEvent.id}
+              id={featuredEvent.id}
+              title={featuredEvent.title}
+              image={featuredEvent.image}
+              date={featuredEvent.date}
+              location={featuredEvent.location}
+            />
+          ))
         ) : (
-          <p className="text-cool font-semibold text-lg">No events available at the moment.</p>
+          <p className="text-cool font-semibold text-lg">
+            No events available at the moment.
+          </p>
         )}
       </div>
     </>

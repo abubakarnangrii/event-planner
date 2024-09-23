@@ -3,8 +3,8 @@ import React from "react";
 
 const Header = () => {
   return (
-    <div className=" bg-cool px-4 py-4">
-      <div className="max-w-screen-lg mx-auto flex justify-between items-center">
+    <header className=" bg-cool px-4 py-4">
+      <nav className="max-w-screen-lg mx-auto flex justify-between items-center">
         <div>
           <Link
             replace
@@ -22,8 +22,8 @@ const Header = () => {
             Browse All Events
           </Link>
         </div>
-      </div>
-    </div>
+      </nav>
+    </header>
   );
 };
 

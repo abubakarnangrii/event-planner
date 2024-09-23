@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Header from "@/components/Header";
 import EventCard from "@/components/EventCard";
 import { getFilteredEvents } from "@/data/DummyData";
 
@@ -12,12 +11,8 @@ const EventsFilterPage = () => {
 
   useEffect(() => {
     if (!year || !month) return;
-
-    // Convert year to number
     const numYear = Number(year);
     const numMonth = Number(month);
-
-    // Fetch filtered events
     const events = getFilteredEvents({ year: numYear, month: numMonth });
     setFilterEvents(events);
     setLoading(false);
@@ -26,16 +21,23 @@ const EventsFilterPage = () => {
   if (loading) {
     return <p>Loading events...</p>;
   }
-console.log(filterEvents)
   return (
     <>
-      <Header />
       <div className="flex flex-col justify-center items-center gap-y-4 py-20">
         <h1 className="text-2xl text-cool font-semibold">
           Events in {month} {year}
         </h1>
         {filterEvents.length > 0 ? (
-          <EventCard featuredEvents={filterEvents} />
+          filterEvents.map((event) => (
+            <EventCard
+              key={event.id}
+              id={event.id}
+              title={event.title}
+              image={event.image}
+              date={event.date}
+              location={event.location}
+            />
+          ))
         ) : (
           <p className="text-cool font-semibold text-lg">
             No events available on this date.

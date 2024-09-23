@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { getAllEvents } from "@/data/DummyData";
-import Header from "@/components/Header";
 import EventCard from "@/components/EventCard";
-import Link from "next/link";
+import { useRouter } from "next/router";
 
 const AllEventsPage = () => {
+  const router = useRouter();
   const [events, setEvents] = useState([]);
-  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
-  const [selectedMonth, setSelectedMonth] = useState("01");
+  const yearInputRef = useRef();
+  const monthInputRef = useRef("01");
 
   useEffect(() => {
     const eventsData = getAllEvents();
@@ -30,18 +30,24 @@ const AllEventsPage = () => {
     { value: "11", label: "November" },
     { value: "12", label: "December" },
   ];
-  
 
+  const handleFilter = (e) => {
+    e.preventDefault();
+    const selectedYear = yearInputRef.current.value;
+    const selectedMonth = monthInputRef.current.value;
+    router.push({
+      pathname: `/events/${selectedYear}/${selectedMonth}`,
+      query: { year: selectedYear, month: selectedMonth },
+    });
+  };
   return (
     <div className="bg-text">
-      <Header />
       <div className="flex flex-col justify-center items-center gap-y-4 py-20">
         <div className="flex justify-around  mb-4 bg-white w-[600px] rounded py-3 text-black">
           <div className="flex justify-center items-center gap-3 px-4">
             <p className=" text-lg font-semibold">Year</p>
             <select
-              value={selectedYear}
-              onChange={(e) => setSelectedYear(e.target.value)}
+              ref={yearInputRef}
               className="border border-cool  rounded p-1.5 w-[100px]"
             >
               {years.map((year) => (
@@ -54,8 +60,7 @@ const AllEventsPage = () => {
           <div className="flex justify-center items-center gap-3">
             <p className=" text-lg font-semibold">Month</p>
             <select
-              value={selectedMonth}
-              onChange={(e) => setSelectedMonth(e.target.value)}
+              ref={monthInputRef}
               className="border border-cool  rounded p-1.5 w-[140px]"
             >
               {months.map((month) => (
@@ -66,20 +71,27 @@ const AllEventsPage = () => {
             </select>
           </div>
           <div className="flex justify-end items-center ">
-            <Link
-              href={{
-                pathname: `/events/${selectedYear}/${selectedMonth}`,
-                query: { year: selectedYear, month: selectedMonth },
-              }}
+            <button
+              type="submit"
+              onClick={handleFilter}
               className="bg-cool text-white py-2 px-4 flex items-center rounded hover:text-white/80 transition"
             >
-              <p className="mr-2">Find Event</p>
-            </Link>
+              Find Event
+            </button>
           </div>
         </div>
         <h1 className="text-2xl text-cool font-semibold">All Events</h1>
         {events.length > 0 ? (
-          <EventCard featuredEvents={events} />
+          events.map((event) => (
+            <EventCard
+              key={event.id}
+              id={event.id}
+              title={event.title}
+              image={event.image}
+              date={event.date}
+              location={event.location}
+            />
+          ))
         ) : (
           <p className="text-cool font-semibold text-lg">
             No events available at the moment.
